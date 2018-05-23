@@ -1,0 +1,19 @@
+version: '2'
+services:
+  db:
+    image: postgres:9.4
+    environment:
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+
+  odoo10:
+    image: odoo:10.0
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+    #tty: true
+    command: -- --dev=reload
+    volumes:
+      - ./addons:/mnt/extra-addons
+      - ./etc:/etc/odoo
